@@ -3,14 +3,28 @@ A light-weight HTTP Listener set to receive a Personal Access Token or similar, 
 
 ## Installation
 1. Clone this repository
-2. Create a directory "ssl" in the base of your cloned project and generate your SSL Certificates with the following openssl commands:
+```
+git clone https://github.com/securityvoid/azure-devops-git-update-hookReceiver.git
+```
+2. Create the SSL Certificates utilizing openssl.
+3. Define all the environmental variables.
+4. Run the script with the following command:
+`node index.js`
+### Creating SSL Certificates with OpenSSL
+The following commands can create the SSL Certificates. These should be put in a folder called "ssl" in the base of your
+cloned project. In addition, **SSL_PRIVATE_KEY** and **SSL_PUBLIC_KEY** environmental variables should be set to the 
+appropriate value.
 ```
 openssl genrsa -out key.pem
 openssl req -new -key key.pem -out csr.pem
 openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
 rm csr.pem
 ```
-3. Set the following environmental variables or put them in a .env file in the base of the directory:
+
+
+### Environment Variables
+__NOTE: All environmental variables can be set on the system, or defined in a .env file in the base of the project.__
+
 | Variable | Definition
 | ------------ | -------------
 | **HTTP_LISTENER_PORT**          | The port that the HTTP Listener should listen on.                                   |
@@ -18,9 +32,6 @@ rm csr.pem
 | **TARGET_GIT_DIRECTORY**        | The location of the git directory that you want to run git pull on.                 |
 | **SSL_PRIVATE_KEY**             | The name for the SSL private key. This should probably be key.pem .                 |
 | **SSL_PUBLIC_KEY**              | The name for the SSL public key. This should probably be cert.pem .                 |
-
-4. Run the script with the following command:
-`node index.js`
 
 ## HTTP Request Format
 HTTP Requests should be in the following format:
