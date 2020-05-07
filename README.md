@@ -11,8 +11,8 @@ openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
 rm csr.pem
 ```
 3. Set the following environmental variables or put them in a .env file in the base of the directory:
-Variable | Definition
------------- | -------------
+| Variable | Definition
+| ------------ | -------------
 | **HTTP_LISTENER_PORT**          | The port that the HTTP Listener should listen on.                                   |
 | **HASHED_AUTHORIZATION_BEARER** | The expected Authorization Bearer value run through the function getPwdHashFromPwd. |
 | **TARGET_GIT_DIRECTORY**        | The location of the git directory that you want to run git pull on.                 |
