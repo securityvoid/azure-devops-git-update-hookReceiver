@@ -1,0 +1,25 @@
+{
+  "name": "azure-devops-git-update-hookreceiver",
+  "version": "1.0.0",
+  "description": "Simple Routine for Receiving a Hook to Update a Git Repo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/securityvoid/azure-devops-git-update-hookReceiver.git"
+  },
+  "keywords": [
+    "azure-devops",
+    "git",
+    "update"
+  ],
+  "author": "Douglas Logan",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "q": "^1.5.1",
+    "simple-git": "^2.4.0"
+  }
+}
