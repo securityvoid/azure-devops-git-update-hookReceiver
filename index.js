@@ -6,15 +6,16 @@ const git       = require('simple-git/promise');
 require('dotenv').config();
 
 const options = {
-    key: fs.readFileSync(path.join(__dirname, 'ssl', 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'cert.pem'))
+    key: fs.readFileSync(path.join(__dirname, 'ssl', process.env.SSL_PRIVATE_KEY)),
+    cert: fs.readFileSync(path.join(__dirname, 'ssl', process.env.SSL_PUBLIC_KEY))
 };
 
 require('https').createServer(options, function(req, res) {
     let data = '';
-    if(!req.headers || !req.headers.authorization || !validateToken(req.headers.authorization.replace(/^Bearer\s+/,'')) )
-        sendResponse(res, 401,{ 'error': 'Access Denied'});
-    else {
+    if(!req.headers || !req.headers.authorization || !validateToken(req.headers.authorization.replace(/^Bearer\s+/,'')) ) {
+        console.log("Authorization Bearer Not Included or Not Valid:" + req.ip );
+        sendResponse(res, 401, {'error': 'Access Denied'});
+    } else {
         if (req.method == "POST") {
             req.on('data', function(chunk) {
                 data += chunk;
@@ -28,9 +29,11 @@ require('https').createServer(options, function(req, res) {
                         sendResponse(res, 401,{ 'error': 'Access Denied'});
                     });
                 else
+                    console.log("Authorization Bearer Token Was Not Valid:" + req.ip );
                     sendResponse(res, 401,{ 'error': 'Access Denied'});
             });
         } else {
+            console.log("Not a POST Request:" + req.ip );
             sendResponse(res, 401,{ 'error': 'Access Denied'});
         }
     }
@@ -89,9 +92,11 @@ function gitPull(tokenValue){
         git(process.env.TARGET_GIT_DIRECTORY).env('GCM_INTERACTIVE', 'never').env('GIT_TERMINAL_PROMPT', '0').pull(credPushUrl).then(function(response){
             deferred.resolve(response);
         }).catch(function(error){
+            console.log("Git Pull Error:" + JSON.stringify(error, Object.getOwnPropertyNames(error)));
             deferred.reject(error);
         });
     }).catch(function(error){
+        console.log("Unknown Git Pull Error:" + JSON.stringify(error, Object.getOwnPropertyNames(error)));
         deferred.reject(error);
     });
     return deferred.promise;
