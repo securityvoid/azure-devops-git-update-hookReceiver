@@ -48,8 +48,10 @@ Content-Length: 67
 access_token=[ACCESS_TOKEN_VALUE]
 ```
 
-Where [AUTHORIZATION_BEARER_VALUE] is the authentication token that you've run through getPwdHashFromPwd and stored its value into the environmental variable HASHED_AUTHORIZATION_BEARER
-and [ACCESS_TOKEN_VALUE] is the personal access token or similar from Azure DevOps that is allowed to pull the repository. [HOSTNAME] must also be filled out.
+Where __[AUTHORIZATION_BEARER_VALUE]__ is the authentication token that you've run through getPwdHashFromPwd and stored its 
+value into the environmental variable **HASHED_AUTHORIZATION_BEARER** and __[ACCESS_TOKEN_VALUE]__ is the personal access 
+token or similar from Azure DevOps that is allowed to pull the repository. __[HOSTNAME]__ must also be set to the 
+appropriate host.
 
 ### Example HTTP Request
 The following is an example HTTP Request:
