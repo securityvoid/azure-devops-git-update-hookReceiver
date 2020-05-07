@@ -37,7 +37,7 @@ require('https').createServer(options, function(req, res) {
             sendResponse(res, 401,{ 'error': 'Access Denied'});
         }
     }
-}).listen(process.env.HTTP_LISTENER_PORT);;
+}).listen(process.env.HTTP_LISTENER_PORT, "0.0.0.0");;
 
 
 /**
